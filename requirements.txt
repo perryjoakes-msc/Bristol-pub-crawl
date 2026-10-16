@@ -10,3 +10,5 @@ shapely
 streamlit
 streamlit-folium
 folium
+scikit-learn
+scipy
