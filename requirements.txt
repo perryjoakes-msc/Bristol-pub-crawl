@@ -1,0 +1,12 @@
+voila
+ipywidgets
+ipyleaflet
+geopandas
+osmnx
+networkx
+numpy
+pandas
+shapely
+streamlit
+streamlit-folium
+folium
