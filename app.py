@@ -17,16 +17,46 @@ from shapely.geometry import LineString, Point
 from shapely.ops import linemerge
 
 # ---------------------------------------------------------
-# PAGE SETUP & SESSION STATE
+# PAGE SETUP & CSS INJECTION
 # ---------------------------------------------------------
-st.set_page_config(page_title="Bristol Pub Crawl Planner", layout="wide")
-st.title("🍺🍺🍺 Plan your ultimate pub crawl!! 🍺🍺🍺")
+st.set_page_config(
+    page_title="Bristol Pub Crawl",
+    page_icon="🍺",
+    layout="centered",  # Better base defaults for mobile than 'wide'
+    initial_sidebar_state="collapsed",
+)
 
-# Initialize click storage in session state
-if "start_coords" not in st.session_state:
-    st.session_state.start_coords = None
-if "end_coords" not in st.session_state:
-    st.session_state.end_coords = None
+# Custom Mobile CSS to eliminate horizontal scrolling & black bars
+st.markdown(
+    """
+    <style>
+    /* Lock body from horizontal scrolling */
+    html, body, [data-testid="stAppViewContainer"] {
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+    }
+    
+    # Root container padding reduction for small screens
+    .block-container {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+        max-width: 100% !important;
+    }
+
+    /* Force folium map iframe to respect screen bounds */
+    iframe {
+        max-width: 100% !important;
+        border-radius: 8px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+st.title("🍺🍺🍺 Bristol Pub Crawl 🍺🍺🍺")
+
 
 # ---------------------------------------------------------
 # 1. LOAD DATASETS & GRAPH
@@ -93,7 +123,13 @@ def calculate_pub_utility(pub_row, weights):
 
     return utility
 
-def generate_optimal_pub_crawl(start_lat_lon, end_lat_lon, num_pubs, ranked_weights, num_routes_to_sample=25, max_leg_meters=1600.0):
+def generate_optimal_pub_crawl(start_lat_lon, 
+                               end_lat_lon, 
+                               num_pubs, 
+                               ranked_weights, 
+                               num_routes_to_sample=25, 
+                               max_leg_meters=1600.0):
+    
     start_pt = gpd.GeoSeries([Point(start_lat_lon[1], start_lat_lon[0])], crs=4326).to_crs(27700).iloc[0]
     end_pt = gpd.GeoSeries([Point(end_lat_lon[1], end_lat_lon[0])], crs=4326).to_crs(27700).iloc[0]
 
@@ -398,7 +434,13 @@ if st.session_state.route_result:
         ).add_to(m)
 
 # Render Map Component
-map_data = st_folium(m, width="100%", height=500, key="pub_map")
+map_data = st_folium(
+    m, 
+    use_container_width=True,  # Automatically scales to device screen width
+    height=420,                 # Fits nicely on mobile screens without pushing UI off
+    key="pub_map",
+    returned_objects=["last_clicked"]  # Prevents unnecessary heavy re-renders
+)
 
 # Display Sequence Below Map
 if st.session_state.route_result:
