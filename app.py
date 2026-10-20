@@ -23,7 +23,7 @@ st.set_page_config(
     page_title="Bristol Pub Crawl",
     page_icon="🍺",
     layout="wide",  # Better base defaults for mobile than 'wide'
-    initial_sidebar_state="collapsed",
+    initial_sidebar_state="expanded",
 )
 
 # Custom Mobile CSS to eliminate horizontal scrolling & black bars
@@ -31,50 +31,63 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    /* 1. HIDE STREAMLIT TOP HEADER */
-    header[data-testid="stHeader"] {
+    /* 1. HIDE ONLY FORK/GITHUB/MENU (LEAVE SIDEBAR TOGGLE BUTTON ACTIVE) */
+    [data-testid="stHeaderActionElements"], 
+    [data-testid="stToolbar"],
+    footer {
         display: none !important;
     }
 
-    /* 2. FORCE BACKGROUND DARK TO MATCH APP THEME (ELIMINATES WHITE STRIPS) */
-    html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
-        background-color: #0e1117 !important;
-        overflow-x: hidden !important;
-        max-width: 100vw !important;
+    /* Keep header background transparent so toggle button floats cleanly */
+    header[data-testid="stHeader"] {
+        background: transparent !important;
+        height: 2rem !important;
     }
 
-    /* 3. SIDEBAR WIDTH & ZERO TOP PADDING */
-    [data-testid="stSidebar"] {
-        width: 65vw !important;
-        max-width: 300px !important;
-        padding-top: 0rem !important;
+    /* Style the sidebar expand/collapse chevron button */
+    [data-testid="stSidebarCollapseButton"] {
+        color: white !important;
+        visibility: visible !important;
     }
-    
-    [data-testid="stSidebar"] > div:first-child,
-    [data-testid="stSidebarUserContent"] {
+
+    /* 2. LOCK VIEWPORT & ELIMINATE HORIZONTAL SCROLLING */
+    html, body, [data-testid="stAppViewContainer"], .main {
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+        background-color: #0e1117 !important;
+    }
+
+    /* 3. SIDEBAR WIDTH & HARD-RESET TOP PADDING */
+    [data-testid="stSidebar"] {
+        width: 75vw !important;
+        max-width: 320px !important;
+    }
+
+    [data-testid="stSidebar"] > div,
+    [data-testid="stSidebarUserContent"],
+    [data-testid="stSidebarContent"] {
         padding-top: 0.5rem !important;
         margin-top: 0rem !important;
     }
 
-    /* 4. EXPAND MAIN CONTAINER FULL BLEED */
+    /* 4. MAIN CONTAINER EDGE-TO-EDGE BLEED */
     [data-testid="stAppViewContainer"] > .main {
         width: 100% !important;
         flex: 1 1 auto !important;
-        padding: 0 !important;
     }
     
     .block-container {
         padding-top: 0.5rem !important;
         padding-bottom: 0.5rem !important;
-        padding-left: 0.5rem !important;
-        padding-right: 0.5rem !important;
+        padding-left: 0.25rem !important;
+        padding-right: 0.25rem !important;
         max-width: 100% !important;
     }
 
-    /* Force folium map iframe to respect screen bounds */
-    iframe {
+    /* 5. FORCE MAP CANVAS TO STAY IN BOUNDS */
+    iframe, .stFolium {
         max-width: 100% !important;
-        border-radius: 8px;
+        border-radius: 6px;
     }
     </style>
     """,
