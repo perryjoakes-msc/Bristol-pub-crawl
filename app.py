@@ -26,38 +26,41 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Custom Mobile CSS to eliminate horizontal scrolling & black bars
-# Custom Mobile CSS to make the sidebar narrower using viewport units (vw)
+
 st.markdown(
     """
     <style>
-    /* 1. HIDE ONLY FORK/GITHUB/MENU (LEAVE SIDEBAR TOGGLE BUTTON ACTIVE) */
-    [data-testid="stHeaderActionElements"], 
-    [data-testid="stToolbar"],
-    footer {
+    /* 1. HIDE ONLY TOOLBAR CLUTTER (FORK, GITHUB, MENU) */
+    [data-testid="stToolbar"], footer {
         display: none !important;
     }
 
-    /* Keep header background transparent so toggle button floats cleanly */
+    /* 2. MAKE SIDEBAR TOGGLE BUTTON ALWAYS VISIBLE & ACCESSIBLE */
     header[data-testid="stHeader"] {
         background: transparent !important;
-        height: 2rem !important;
+        z-index: 999999 !important;
     }
 
-    /* Style the sidebar expand/collapse chevron button */
-    [data-testid="stSidebarCollapseButton"] {
-        color: white !important;
+    /* Ensure expand/collapse button stays clickable over the map */
+    [data-testid="stSidebarCollapseButton"], 
+    button[aria-label="Expand sidebar"],
+    button[aria-label="Collapse sidebar"] {
         visibility: visible !important;
+        display: block !important;
+        color: white !important;
+        background-color: rgba(14, 17, 23, 0.8) !important;
+        border-radius: 6px !important;
+        z-index: 999999 !important;
     }
 
-    /* 2. LOCK VIEWPORT & ELIMINATE HORIZONTAL SCROLLING */
+    /* 3. LOCK VIEWPORT & ELIMINATE HORIZONTAL SCROLLING */
     html, body, [data-testid="stAppViewContainer"], .main {
         overflow-x: hidden !important;
         max-width: 100vw !important;
         background-color: #0e1117 !important;
     }
 
-    /* 3. SIDEBAR WIDTH & HARD-RESET TOP PADDING */
+    /* 4. SIDEBAR WIDTH & HARD-RESET TOP PADDING */
     [data-testid="stSidebar"] {
         width: 75vw !important;
         max-width: 320px !important;
@@ -70,21 +73,21 @@ st.markdown(
         margin-top: 0rem !important;
     }
 
-    /* 4. MAIN CONTAINER EDGE-TO-EDGE BLEED */
+    /* 5. MAIN CONTAINER EDGE-TO-EDGE BLEED */
     [data-testid="stAppViewContainer"] > .main {
         width: 100% !important;
         flex: 1 1 auto !important;
     }
     
     .block-container {
-        padding-top: 0.5rem !important;
+        padding-top: 2rem !important; /* Small top clearance for the toggle button */
         padding-bottom: 0.5rem !important;
         padding-left: 0.25rem !important;
         padding-right: 0.25rem !important;
         max-width: 100% !important;
     }
 
-    /* 5. FORCE MAP CANVAS TO STAY IN BOUNDS */
+    /* 6. FORCE MAP CANVAS TO STAY IN BOUNDS */
     iframe, .stFolium {
         max-width: 100% !important;
         border-radius: 6px;
@@ -93,6 +96,7 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+
 
 #st.title("🍺 Bristol Pub Crawl 🍺")
 
