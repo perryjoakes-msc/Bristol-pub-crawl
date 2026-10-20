@@ -33,7 +33,7 @@ st.markdown(
     /* Lock body from horizontal scrolling */
     html, body, [data-testid="stAppViewContainer"] {
         overflow-x: hidden !important;
-        max-width: 100vw !important;
+        max-width: 80vw !important;
     }
     
     # Root container padding reduction for small screens
@@ -290,7 +290,7 @@ if "end_coords" not in st.session_state:
 if "route_result" not in st.session_state:
     st.session_state.route_result = None
 
-st.sidebar.header("Configure Your Crawl")
+st.sidebar.header("Lets plan your crawl!")
 st.sidebar.write("📍 **1. Click twice on the map** to set Start (Green) & End (Red) pins.")
 
 if st.sidebar.button("Reset Map & Pins"):
@@ -304,7 +304,7 @@ if st.session_state.start_coords:
 if st.session_state.end_coords:
     st.sidebar.error(f"End: {st.session_state.end_coords[0]:.4f}, {st.session_state.end_coords[1]:.4f}")
 
-num_pubs = st.sidebar.slider("2. How many pub stops?", min_value=2, max_value=30, value=5)
+num_pubs = st.sidebar.slider("2. How many pubs can you handle?", min_value=2, max_value=30, value=5)
 
 selected_priorities = st.sidebar.multiselect(
     "3. Clear preferences and re-rank in the order of importance:",
@@ -312,7 +312,7 @@ selected_priorities = st.sidebar.multiselect(
     default=list(PARAM_DISPLAY_MAP.keys())
 )
 
-run_button = st.sidebar.button("🚀 Build Optimal Crawl", use_container_width=True)
+run_button = st.sidebar.button("GENERATE", use_container_width=True)
 
 # ---------------------------------------------------------
 # 4. ROUTE CALCULATION LOGIC
