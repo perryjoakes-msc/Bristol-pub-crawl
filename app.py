@@ -31,13 +31,23 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    /* 1. NARROW SIDEBAR WIDTH USING VW */
-    [data-testid="stSidebar"] {
-        width: 65vw !important;     /* Reduced width (default streamlit mobile is ~80vw-85vw) */
-        max-width: 300px !important; /* Cap it on larger screens so it doesn't stretch too far */
+    /* 1. HIDE STREAMLIT TOP HEADER (Fork, GitHub icon, 3 dots) */
+    header[data-testid="stHeader"] {
+        display: none !important;
     }
 
-    /* 2. FORCE MAIN CONTENT TO EXPAND FULLY (Prevents black bars on the right) */
+    /* 2. REMOVE TOP PADDING FROM SIDEBAR CONTENT */
+    [data-testid="stSidebar"] > div:first-child {
+        padding-top: 1rem !important;
+    }
+
+    /* 3. NARROW SIDEBAR WIDTH USING VW */
+    [data-testid="stSidebar"] {
+        width: 65vw !important;
+        max-width: 300px !important;
+    }
+
+    /* 4. FORCE MAIN CONTENT TO EXPAND FULLY */
     [data-testid="stAppViewContainer"] > .main {
         width: 100% !important;
         flex: 1 1 auto !important;
@@ -49,9 +59,9 @@ st.markdown(
         max-width: 100vw !important;
     }
     
-    /* Root container padding reduction for small screens */
+    /* Pull main page content to the absolute top */
     .block-container {
-        padding-top: 1rem !important;
+        padding-top: 0.5rem !important;
         padding-bottom: 1rem !important;
         padding-left: 0.5rem !important;
         padding-right: 0.5rem !important;
