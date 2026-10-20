@@ -22,7 +22,7 @@ from shapely.ops import linemerge
 st.set_page_config(
     page_title="Bristol Pub Crawl",
     page_icon="🍺",
-    layout="centered",  # Better base defaults for mobile than 'wide'
+    layout="wide",  # Better base defaults for mobile than 'wide'
     initial_sidebar_state="collapsed",
 )
 
@@ -36,8 +36,17 @@ st.markdown(
         display: none !important;
     }
 
-    /* 2. REMOVE ALL TOP PADDING & MARGIN FROM SIDEBAR CONTENT */
+    /* 2. FORCE BACKGROUND DARK TO MATCH APP THEME (ELIMINATES WHITE STRIPS) */
+    html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
+        background-color: #0e1117 !important;
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+    }
+
+    /* 3. SIDEBAR WIDTH & ZERO TOP PADDING */
     [data-testid="stSidebar"] {
+        width: 65vw !important;
+        max-width: 300px !important;
         padding-top: 0rem !important;
     }
     
@@ -47,28 +56,16 @@ st.markdown(
         margin-top: 0rem !important;
     }
 
-    /* 3. NARROW SIDEBAR WIDTH USING VW */
-    [data-testid="stSidebar"] {
-        width: 65vw !important;
-        max-width: 300px !important;
-    }
-
-    /* 4. FORCE MAIN CONTENT TO EXPAND FULLY */
+    /* 4. EXPAND MAIN CONTAINER FULL BLEED */
     [data-testid="stAppViewContainer"] > .main {
         width: 100% !important;
         flex: 1 1 auto !important;
-    }
-
-    /* Lock body from horizontal scrolling */
-    html, body, [data-testid="stAppViewContainer"] {
-        overflow-x: hidden !important;
-        max-width: 100vw !important;
+        padding: 0 !important;
     }
     
-    /* Pull main page content to the absolute top */
     .block-container {
         padding-top: 0.5rem !important;
-        padding-bottom: 1rem !important;
+        padding-bottom: 0.5rem !important;
         padding-left: 0.5rem !important;
         padding-right: 0.5rem !important;
         max-width: 100% !important;
