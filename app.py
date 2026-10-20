@@ -303,7 +303,7 @@ if "end_coords" not in st.session_state:
 if "route_result" not in st.session_state:
     st.session_state.route_result = None
 
-st.sidebar.header("🍺 Plan Your Bristol Pub Crawl! 🍺 ")
+st.sidebar.header("Plan Your Bristol Pub Crawl! 🍺🍺🍺 ")
 st.sidebar.write("📍 **1. Click twice on the map** to set Start (Green) & End (Red) pins.")
 
 if st.sidebar.button("Reset Map & Pins"):
@@ -364,6 +364,7 @@ center_lon = pubs_4326.geometry.x.mean()
 m = folium.Map(
     location=[center_lat, center_lon],
     zoom_start=14,
+    zoom_control = False,
     tiles="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
     attr="Esri"
 )
