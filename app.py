@@ -27,16 +27,29 @@ st.set_page_config(
 )
 
 # Custom Mobile CSS to eliminate horizontal scrolling & black bars
+# Custom Mobile CSS to make the sidebar narrower using viewport units (vw)
 st.markdown(
     """
     <style>
+    /* 1. NARROW SIDEBAR WIDTH USING VW */
+    [data-testid="stSidebar"] {
+        width: 65vw !important;     /* Reduced width (default streamlit mobile is ~80vw-85vw) */
+        max-width: 300px !important; /* Cap it on larger screens so it doesn't stretch too far */
+    }
+
+    /* 2. FORCE MAIN CONTENT TO EXPAND FULLY (Prevents black bars on the right) */
+    [data-testid="stAppViewContainer"] > .main {
+        width: 100% !important;
+        flex: 1 1 auto !important;
+    }
+
     /* Lock body from horizontal scrolling */
     html, body, [data-testid="stAppViewContainer"] {
         overflow-x: hidden !important;
-        max-width: 80vw !important;
+        max-width: 100vw !important;
     }
     
-    # Root container padding reduction for small screens
+    /* Root container padding reduction for small screens */
     .block-container {
         padding-top: 1rem !important;
         padding-bottom: 1rem !important;
