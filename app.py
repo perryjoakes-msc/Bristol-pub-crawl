@@ -23,73 +23,33 @@ st.set_page_config(
     page_title="Bristol Pub Crawl",
     page_icon="🍺",
     layout="wide",  # Better base defaults for mobile than 'wide'
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="auto",
 )
 
 
 st.markdown(
     """
     <style>
-    /* 1. HIDE ONLY RIGHT HEADER CLUTTER (Fork, GitHub, Menu) */
-    [data-testid="stHeaderActionElements"],
-    [data-testid="stToolbar"], 
-    footer {
+    /* Hide top header clutter (Fork/GitHub/Menu) without breaking sidebar controls */
+    [data-testid="stHeaderActionElements"], footer {
         display: none !important;
     }
 
-    /* Keep header wrapper transparent so the collapse button stays visible */
-    header[data-testid="stHeader"] {
-        background: transparent !important;
-        height: 3rem !important;
-        z-index: 999999 !important;
-    }
-
-    /* 2. STYLE & PIN SIDEBAR TOGGLE BUTTON AT TOP-LEFT */
-    [data-testid="stSidebarCollapsedControl"] {
-        display: block !important;
-        visibility: visible !important;
-        position: fixed !important;
-        top: 0.5rem !important;
-        left: 0.5rem !important;
-        z-index: 1000000 !important;
-        background-color: #1D3557 !important;
-        border-radius: 6px !important;
-    }
-
-    /* 3. SIDEBAR WIDTH & RESPONSIVENESS */
-    [data-testid="stSidebar"] {
-        width: 75vw !important;
-        max-width: 320px !important;
-    }
-
-    [data-testid="stSidebar"] > div,
-    [data-testid="stSidebarUserContent"],
-    [data-testid="stSidebarContent"] {
-        padding-top: 0.5rem !important;
-        margin-top: 0rem !important;
-    }
-
-    /* 4. LOCK VIEWPORT & ELIMINATE SCROLLING */
-    html, body, [data-testid="stAppViewContainer"], .main {
+    /* Lock body background and horizontal scroll */
+    html, body, [data-testid="stAppViewContainer"] {
         overflow-x: hidden !important;
-        max-width: 100vw !important;
         background-color: #0e1117 !important;
     }
 
-    /* 5. MAIN CONTAINER & MAP SIZING */
-    [data-testid="stAppViewContainer"] > .main {
-        width: 100% !important;
-        flex: 1 1 auto !important;
-    }
-    
+    /* Reduce main container top margin slightly for a tight layout */
     .block-container {
-        padding-top: 2.5rem !important; /* Prevents toggle button from overlapping map header */
+        padding-top: 1rem !important;
         padding-bottom: 0.5rem !important;
-        padding-left: 0.25rem !important;
-        padding-right: 0.25rem !important;
-        max-width: 100% !important;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
     }
 
+    /* Keep map canvas bounded */
     iframe, .stFolium {
         max-width: 100% !important;
         border-radius: 6px;
