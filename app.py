@@ -30,30 +30,36 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    /* 1. HIDE TOP HEADER CLUTTER */
-    [data-testid="stToolbar"], footer {
+    /* 1. HIDE ONLY RIGHT HEADER CLUTTER (Fork, GitHub, Menu) */
+    [data-testid="stHeaderActionElements"],
+    [data-testid="stToolbar"], 
+    footer {
         display: none !important;
     }
 
-    /* 2. FORCE SIDEBAR VISIBLE & EXPANDED ON ALL MOBILE SCREENS */
-    [data-testid="stSidebar"] {
-        transform: none !important;
-        visibility: visible !important;
+    /* Keep header wrapper transparent so the collapse button stays visible */
+    header[data-testid="stHeader"] {
+        background: transparent !important;
+        height: 3rem !important;
+        z-index: 999999 !important;
+    }
+
+    /* 2. STYLE & PIN SIDEBAR TOGGLE BUTTON AT TOP-LEFT */
+    [data-testid="stSidebarCollapsedControl"] {
         display: block !important;
+        visibility: visible !important;
+        position: fixed !important;
+        top: 0.5rem !important;
+        left: 0.5rem !important;
+        z-index: 1000000 !important;
+        background-color: #1D3557 !important;
+        border-radius: 6px !important;
+    }
+
+    /* 3. SIDEBAR WIDTH & RESPONSIVENESS */
+    [data-testid="stSidebar"] {
         width: 75vw !important;
         max-width: 320px !important;
-    }
-
-    /* Prevent the main container from obscuring the sidebar */
-    [data-testid="stSidebarCollapsedControl"] {
-        display: none !important;
-    }
-
-    /* 3. LOCK VIEWPORT & ELIMINATE SCROLLING */
-    html, body, [data-testid="stAppViewContainer"], .main {
-        overflow-x: hidden !important;
-        max-width: 100vw !important;
-        background-color: #0e1117 !important;
     }
 
     [data-testid="stSidebar"] > div,
@@ -63,14 +69,21 @@ st.markdown(
         margin-top: 0rem !important;
     }
 
-    /* 4. MAIN CONTAINER & MAP SIZING */
+    /* 4. LOCK VIEWPORT & ELIMINATE SCROLLING */
+    html, body, [data-testid="stAppViewContainer"], .main {
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+        background-color: #0e1117 !important;
+    }
+
+    /* 5. MAIN CONTAINER & MAP SIZING */
     [data-testid="stAppViewContainer"] > .main {
         width: 100% !important;
         flex: 1 1 auto !important;
     }
     
     .block-container {
-        padding-top: 0.5rem !important;
+        padding-top: 2.5rem !important; /* Prevents toggle button from overlapping map header */
         padding-bottom: 0.5rem !important;
         padding-left: 0.25rem !important;
         padding-right: 0.25rem !important;
