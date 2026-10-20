@@ -68,7 +68,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.title("🍺🍺🍺 Bristol Pub Crawl 🍺🍺🍺")
+#st.title("🍺 Bristol Pub Crawl 🍺")
 
 
 # ---------------------------------------------------------
@@ -303,7 +303,7 @@ if "end_coords" not in st.session_state:
 if "route_result" not in st.session_state:
     st.session_state.route_result = None
 
-st.sidebar.header("Lets plan your crawl!")
+st.sidebar.header("🍺 Plan Your Bristol Pub Crawl! 🍺 ")
 st.sidebar.write("📍 **1. Click twice on the map** to set Start (Green) & End (Red) pins.")
 
 if st.sidebar.button("Reset Map & Pins"):
