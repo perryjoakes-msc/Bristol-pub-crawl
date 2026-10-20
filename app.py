@@ -30,40 +30,30 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    /* 1. HIDE ONLY TOOLBAR CLUTTER (FORK, GITHUB, MENU) */
+    /* 1. HIDE TOP HEADER CLUTTER */
     [data-testid="stToolbar"], footer {
         display: none !important;
     }
 
-    /* 2. MAKE SIDEBAR TOGGLE BUTTON ALWAYS VISIBLE & ACCESSIBLE */
-    header[data-testid="stHeader"] {
-        background: transparent !important;
-        z-index: 999999 !important;
-    }
-
-    /* Ensure expand/collapse button stays clickable over the map */
-    [data-testid="stSidebarCollapseButton"], 
-    button[aria-label="Expand sidebar"],
-    button[aria-label="Collapse sidebar"] {
+    /* 2. FORCE SIDEBAR VISIBLE & EXPANDED ON ALL MOBILE SCREENS */
+    [data-testid="stSidebar"] {
+        transform: none !important;
         visibility: visible !important;
         display: block !important;
-        color: white !important;
-        background-color: rgba(14, 17, 23, 0.8) !important;
-        border-radius: 6px !important;
-        z-index: 999999 !important;
+        width: 75vw !important;
+        max-width: 320px !important;
     }
 
-    /* 3. LOCK VIEWPORT & ELIMINATE HORIZONTAL SCROLLING */
+    /* Prevent the main container from obscuring the sidebar */
+    [data-testid="stSidebarCollapsedControl"] {
+        display: none !important;
+    }
+
+    /* 3. LOCK VIEWPORT & ELIMINATE SCROLLING */
     html, body, [data-testid="stAppViewContainer"], .main {
         overflow-x: hidden !important;
         max-width: 100vw !important;
         background-color: #0e1117 !important;
-    }
-
-    /* 4. SIDEBAR WIDTH & HARD-RESET TOP PADDING */
-    [data-testid="stSidebar"] {
-        width: 75vw !important;
-        max-width: 320px !important;
     }
 
     [data-testid="stSidebar"] > div,
@@ -73,21 +63,20 @@ st.markdown(
         margin-top: 0rem !important;
     }
 
-    /* 5. MAIN CONTAINER EDGE-TO-EDGE BLEED */
+    /* 4. MAIN CONTAINER & MAP SIZING */
     [data-testid="stAppViewContainer"] > .main {
         width: 100% !important;
         flex: 1 1 auto !important;
     }
     
     .block-container {
-        padding-top: 2rem !important; /* Small top clearance for the toggle button */
+        padding-top: 0.5rem !important;
         padding-bottom: 0.5rem !important;
         padding-left: 0.25rem !important;
         padding-right: 0.25rem !important;
         max-width: 100% !important;
     }
 
-    /* 6. FORCE MAP CANVAS TO STAY IN BOUNDS */
     iframe, .stFolium {
         max-width: 100% !important;
         border-radius: 6px;
