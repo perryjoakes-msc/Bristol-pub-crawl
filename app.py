@@ -29,6 +29,10 @@ st.set_page_config(
 
 st.markdown(
     """
+    <!-- Custom Home Screen Icon for iOS/Android -->
+    <link rel="apple-touch-icon" href="https://fav.farm/🍺">
+    <link rel="icon" href="https://fav.farm/🍺">
+
     <style>
     /* Hide top header clutter (Fork/GitHub/Menu) without breaking sidebar controls */
     [data-testid="stHeaderActionElements"], footer {
