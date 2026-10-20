@@ -31,14 +31,20 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    /* 1. HIDE STREAMLIT TOP HEADER (Fork, GitHub icon, 3 dots) */
+    /* 1. HIDE STREAMLIT TOP HEADER */
     header[data-testid="stHeader"] {
         display: none !important;
     }
 
-    /* 2. REMOVE TOP PADDING FROM SIDEBAR CONTENT */
-    [data-testid="stSidebar"] > div:first-child {
-        padding-top: 1rem !important;
+    /* 2. REMOVE ALL TOP PADDING & MARGIN FROM SIDEBAR CONTENT */
+    [data-testid="stSidebar"] {
+        padding-top: 0rem !important;
+    }
+    
+    [data-testid="stSidebar"] > div:first-child,
+    [data-testid="stSidebarUserContent"] {
+        padding-top: 0.5rem !important;
+        margin-top: 0rem !important;
     }
 
     /* 3. NARROW SIDEBAR WIDTH USING VW */
