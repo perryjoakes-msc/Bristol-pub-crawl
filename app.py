@@ -30,35 +30,12 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    /* 1. MAKE HEADER TRANSPARENT (LEAVES TOGGLE BUTTON IN DOM, REMOVES BLACK BAR) */
-    header[data-testid="stHeader"] {
-        background-color: transparent !important;
-        z-index: 99999 !important;
-    }
-
-    /* 2. HIDE FORK, GITHUB LINK, AND 3-DOTS MENU ONLY */
-    [data-testid="stHeaderActionElements"],
-    [data-testid="stToolbar"],
-    footer {
+    /* 1. HIDE ALL HEADER CLUTTER & FOOTER */
+    header[data-testid="stHeader"], footer, [data-testid="stToolbar"] {
         display: none !important;
     }
 
-    /* 3. STYLE THE NATIVE TOGGLE BUTTON SO IT FLOATS OVER MAP */
-    [data-testid="stSidebarCollapseButton"],
-    [data-testid="stSidebarCollapsedControl"] {
-        display: flex !important;
-        visibility: visible !important;
-        background-color: #1D3557 !important;
-        border-radius: 6px !important;
-        z-index: 100000 !important;
-    }
-
-    [data-testid="stSidebarCollapseButton"] button,
-    [data-testid="stSidebarCollapsedControl"] button {
-        color: #ffffff !important;
-    }
-
-    /* 4. FULL-BLEED LAYOUT & ZERO MARGINS */
+    /* 2. FULL-BLEED MOBILE VIEWPORT */
     html, body, [data-testid="stAppViewContainer"], .main {
         overflow-x: hidden !important;
         max-width: 100vw !important;
@@ -66,14 +43,13 @@ st.markdown(
     }
 
     .block-container {
-        padding-top: 2rem !important; /* Prevents toggle button from obscuring map edge */
+        padding-top: 0.5rem !important;
         padding-bottom: 0.5rem !important;
-        padding-left: 0.25rem !important;
-        padding-right: 0.25rem !important;
-        max-width: 100% !important;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
     }
 
-    /* Keep map canvas bounded */
+    /* 3. MAP CANVAS STYLING */
     iframe, .stFolium {
         max-width: 100% !important;
         border-radius: 6px;
@@ -85,6 +61,35 @@ st.markdown(
 
 
 #st.title("🍺 Bristol Pub Crawl 🍺")
+
+
+# ---------------------------------------------------------
+# MAIN PAGE CONTROLS (REPLACES ST.SIDEBAR)
+# ---------------------------------------------------------
+with st.expander("⚙️ Plan Your Bristol Pub Crawl!", expanded=True):
+    st.write("📍 **1. Click twice on the map** to set Start (Green) & End (Red) pins.")
+
+    if st.button("Reset Map & Pins"):
+        st.session_state.start_coords = None
+        st.session_state.end_coords = None
+        st.session_state.route_result = None
+        st.rerun()
+
+    if st.session_state.start_coords:
+        st.success(f"Start: {st.session_state.start_coords[0]:.4f}, {st.session_state.start_coords[1]:.4f}")
+    if st.session_state.end_coords:
+        st.error(f"End: {st.session_state.end_coords[0]:.4f}, {st.session_state.end_coords[1]:.4f}")
+
+    num_pubs = st.slider("2. How many pubs can you handle?", min_value=2, max_value=30, value=5)
+
+    selected_priorities = st.multiselect(
+        "3. Clear preferences and re-rank in order of importance:",
+        options=list(PARAM_DISPLAY_MAP.keys()),
+        default=list(PARAM_DISPLAY_MAP.keys())
+    )
+
+    run_button = st.button("GENERATE ROUTE 🍺", use_container_width=True)
+
 
 
 # ---------------------------------------------------------
