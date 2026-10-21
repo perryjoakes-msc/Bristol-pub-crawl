@@ -23,64 +23,60 @@ st.set_page_config(
     page_title="Bristol Pub Crawl",
     page_icon="🍺",
     layout="wide",  
-    initial_sidebar_state="auto",
+    initial_sidebar_state="expanded",
 )
 
 
 st.markdown(
     """
     <style>
-    /* 1. HIDE FORK, GITHUB LINK, AND TOP-RIGHT TOOLBAR ONLY */
+    /* 1. REMOVE BLACK HEADER BAR (MAKE TRANSPARENT SO MAP EXTENDS TO TOP) */
+    header[data-testid="stHeader"] {
+        background-color: transparent !important;
+        z-index: 99999 !important;
+    }
+
+    /* 2. HIDE FORK, GITHUB LINK, AND 3-DOTS MENU ONLY */
     [data-testid="stHeaderActionElements"],
-    [data-testid="stToolbar"],
     footer {
         display: none !important;
     }
 
-    /* 2. TRANSPARENT HEADER CONTAINER */
-    header[data-testid="stHeader"] {
-        background: transparent !important;
-        height: 0px !important;
-        min-height: 0px !important;
-    }
-
-    /* 3. PIN EXPAND/COLLAPSE BUTTON TO TOP-LEFT OVER MAP */
-    [data-testid="stSidebarCollapseButton"] {
-        position: fixed !important;
-        top: 0.5rem !important;
-        left: 0.5rem !important;
-        z-index: 999999 !important;
-        background-color: rgba(14, 17, 23, 0.85) !important;
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
-        border-radius: 6px !important;
-        visibility: visible !important;
+    /* 3. ENSURE THE TOGGLE CHEVRON BUTTON IS ALWAYS VISIBLE & CLICKABLE */
+    [data-testid="stSidebarCollapseButton"],
+    [data-testid="stSidebarCollapsedControl"] {
         display: flex !important;
+        visibility: visible !important;
+        background-color: rgba(14, 17, 23, 0.85) !important;
+        border-radius: 8px !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        z-index: 100000 !important;
     }
 
-    [data-testid="stSidebarCollapseButton"] button {
+    [data-testid="stSidebarCollapseButton"] button,
+    [data-testid="stSidebarCollapsedControl"] button {
         color: #ffffff !important;
     }
 
-    /* 4. SIDEBAR INTERNAL PADDING RESET */
+    /* 4. REMOVE SIDEBAR TOP WHITESPACE */
     [data-testid="stSidebar"] {
         padding-top: 0rem !important;
     }
 
-    [data-testid="stSidebar"] > div,
+    [data-testid="stSidebar"] > div:first-child,
     [data-testid="stSidebarUserContent"],
     [data-testid="stSidebarContent"] {
         padding-top: 0.5rem !important;
         margin-top: 0rem !important;
     }
 
-    /* 5. LOCK VIEWPORT & ELIMINATE HORIZONTAL SCROLLING */
+    /* 5. LOCK VIEWPORT & FULL-BLEED MAIN CONTAINER */
     html, body, [data-testid="stAppViewContainer"], .main {
         overflow-x: hidden !important;
         max-width: 100vw !important;
         background-color: #0e1117 !important;
     }
 
-    /* 6. MAIN CONTAINER BLEED */
     [data-testid="stAppViewContainer"] > .main {
         width: 100% !important;
         flex: 1 1 auto !important;
@@ -94,7 +90,7 @@ st.markdown(
         max-width: 100% !important;
     }
 
-    /* 7. FORCE MAP CANVAS TO BOUNDS */
+    /* 6. KEEP MAP CANVAS BOUNDED */
     iframe, .stFolium {
         max-width: 100% !important;
         border-radius: 6px;
