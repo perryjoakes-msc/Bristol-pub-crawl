@@ -30,26 +30,38 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    /* 1. HIDE FORK, GITHUB LINK, AND TOP-RIGHT MENU ONLY */
+    /* 1. HIDE FORK, GITHUB LINK, AND TOP-RIGHT TOOLBAR ONLY */
     [data-testid="stHeaderActionElements"],
     [data-testid="stToolbar"],
     footer {
         display: none !important;
     }
 
-    /* Keep header background transparent so the sidebar drawer button remains visible */
+    /* 2. TRANSPARENT HEADER CONTAINER */
     header[data-testid="stHeader"] {
         background: transparent !important;
-        height: 2rem !important;
+        height: 0px !important;
+        min-height: 0px !important;
     }
 
-    /* Style the sidebar toggle button cleanly on dark background */
+    /* 3. PIN EXPAND/COLLAPSE BUTTON TO TOP-LEFT OVER MAP */
     [data-testid="stSidebarCollapseButton"] {
-        color: white !important;
+        position: fixed !important;
+        top: 0.5rem !important;
+        left: 0.5rem !important;
+        z-index: 999999 !important;
+        background-color: rgba(14, 17, 23, 0.85) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        border-radius: 6px !important;
         visibility: visible !important;
+        display: flex !important;
     }
 
-    /* 2. REMOVE TOP PADDING & TIGHTEN SIDEBAR CONTENT */
+    [data-testid="stSidebarCollapseButton"] button {
+        color: #ffffff !important;
+    }
+
+    /* 4. SIDEBAR INTERNAL PADDING RESET */
     [data-testid="stSidebar"] {
         padding-top: 0rem !important;
     }
@@ -61,28 +73,28 @@ st.markdown(
         margin-top: 0rem !important;
     }
 
-    /* 3. LOCK VIEWPORT & ELIMINATE HORIZONTAL SCROLLING */
+    /* 5. LOCK VIEWPORT & ELIMINATE HORIZONTAL SCROLLING */
     html, body, [data-testid="stAppViewContainer"], .main {
         overflow-x: hidden !important;
         max-width: 100vw !important;
         background-color: #0e1117 !important;
     }
 
-    /* 4. MAIN CONTAINER EDGE-TO-EDGE BLEED */
+    /* 6. MAIN CONTAINER BLEED */
     [data-testid="stAppViewContainer"] > .main {
         width: 100% !important;
         flex: 1 1 auto !important;
     }
     
     .block-container {
-        padding-top: 0.5rem !important;
+        padding-top: 0rem !important;
         padding-bottom: 0.5rem !important;
         padding-left: 0.25rem !important;
         padding-right: 0.25rem !important;
         max-width: 100% !important;
     }
 
-    /* Force folium map iframe to respect screen bounds */
+    /* 7. FORCE MAP CANVAS TO BOUNDS */
     iframe, .stFolium {
         max-width: 100% !important;
         border-radius: 6px;
