@@ -30,7 +30,7 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    /* 1. REMOVE BLACK HEADER BAR (MAKE TRANSPARENT SO MAP EXTENDS TO TOP) */
+    /* 1. MAKE HEADER TRANSPARENT (LEAVES TOGGLE BUTTON IN DOM, REMOVES BLACK BAR) */
     header[data-testid="stHeader"] {
         background-color: transparent !important;
         z-index: 99999 !important;
@@ -38,18 +38,18 @@ st.markdown(
 
     /* 2. HIDE FORK, GITHUB LINK, AND 3-DOTS MENU ONLY */
     [data-testid="stHeaderActionElements"],
+    [data-testid="stToolbar"],
     footer {
         display: none !important;
     }
 
-    /* 3. ENSURE THE TOGGLE CHEVRON BUTTON IS ALWAYS VISIBLE & CLICKABLE */
+    /* 3. STYLE THE NATIVE TOGGLE BUTTON SO IT FLOATS OVER MAP */
     [data-testid="stSidebarCollapseButton"],
     [data-testid="stSidebarCollapsedControl"] {
         display: flex !important;
         visibility: visible !important;
-        background-color: rgba(14, 17, 23, 0.85) !important;
-        border-radius: 8px !important;
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        background-color: #1D3557 !important;
+        border-radius: 6px !important;
         z-index: 100000 !important;
     }
 
@@ -58,39 +58,22 @@ st.markdown(
         color: #ffffff !important;
     }
 
-    /* 4. REMOVE SIDEBAR TOP WHITESPACE */
-    [data-testid="stSidebar"] {
-        padding-top: 0rem !important;
-    }
-
-    [data-testid="stSidebar"] > div:first-child,
-    [data-testid="stSidebarUserContent"],
-    [data-testid="stSidebarContent"] {
-        padding-top: 0.5rem !important;
-        margin-top: 0rem !important;
-    }
-
-    /* 5. LOCK VIEWPORT & FULL-BLEED MAIN CONTAINER */
+    /* 4. FULL-BLEED LAYOUT & ZERO MARGINS */
     html, body, [data-testid="stAppViewContainer"], .main {
         overflow-x: hidden !important;
         max-width: 100vw !important;
         background-color: #0e1117 !important;
     }
 
-    [data-testid="stAppViewContainer"] > .main {
-        width: 100% !important;
-        flex: 1 1 auto !important;
-    }
-    
     .block-container {
-        padding-top: 0rem !important;
+        padding-top: 2rem !important; /* Prevents toggle button from obscuring map edge */
         padding-bottom: 0.5rem !important;
         padding-left: 0.25rem !important;
         padding-right: 0.25rem !important;
         max-width: 100% !important;
     }
 
-    /* 6. KEEP MAP CANVAS BOUNDED */
+    /* Keep map canvas bounded */
     iframe, .stFolium {
         max-width: 100% !important;
         border-radius: 6px;
