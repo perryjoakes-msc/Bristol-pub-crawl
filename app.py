@@ -22,38 +22,67 @@ from shapely.ops import linemerge
 st.set_page_config(
     page_title="Bristol Pub Crawl",
     page_icon="🍺",
-    layout="wide",  # Better base defaults for mobile than 'wide'
+    layout="wide",  
     initial_sidebar_state="auto",
 )
 
 
 st.markdown(
     """
-    <!-- Custom Home Screen Icon for iOS/Android -->
-    <link rel="apple-touch-icon" href="https://fav.farm/🍺">
-    <link rel="icon" href="https://fav.farm/🍺">
-
     <style>
-    /* Hide top header clutter (Fork/GitHub/Menu) without breaking sidebar controls */
-    [data-testid="stHeaderActionElements"], footer {
+    /* 1. HIDE FORK, GITHUB LINK, AND TOP-RIGHT MENU ONLY */
+    [data-testid="stHeaderActionElements"],
+    [data-testid="stToolbar"],
+    footer {
         display: none !important;
     }
 
-    /* Lock body background and horizontal scroll */
-    html, body, [data-testid="stAppViewContainer"] {
+    /* Keep header background transparent so the sidebar drawer button remains visible */
+    header[data-testid="stHeader"] {
+        background: transparent !important;
+        height: 2rem !important;
+    }
+
+    /* Style the sidebar toggle button cleanly on dark background */
+    [data-testid="stSidebarCollapseButton"] {
+        color: white !important;
+        visibility: visible !important;
+    }
+
+    /* 2. REMOVE TOP PADDING & TIGHTEN SIDEBAR CONTENT */
+    [data-testid="stSidebar"] {
+        padding-top: 0rem !important;
+    }
+
+    [data-testid="stSidebar"] > div,
+    [data-testid="stSidebarUserContent"],
+    [data-testid="stSidebarContent"] {
+        padding-top: 0.5rem !important;
+        margin-top: 0rem !important;
+    }
+
+    /* 3. LOCK VIEWPORT & ELIMINATE HORIZONTAL SCROLLING */
+    html, body, [data-testid="stAppViewContainer"], .main {
         overflow-x: hidden !important;
+        max-width: 100vw !important;
         background-color: #0e1117 !important;
     }
 
-    /* Reduce main container top margin slightly for a tight layout */
+    /* 4. MAIN CONTAINER EDGE-TO-EDGE BLEED */
+    [data-testid="stAppViewContainer"] > .main {
+        width: 100% !important;
+        flex: 1 1 auto !important;
+    }
+    
     .block-container {
-        padding-top: 1rem !important;
+        padding-top: 0.5rem !important;
         padding-bottom: 0.5rem !important;
-        padding-left: 0.5rem !important;
-        padding-right: 0.5rem !important;
+        padding-left: 0.25rem !important;
+        padding-right: 0.25rem !important;
+        max-width: 100% !important;
     }
 
-    /* Keep map canvas bounded */
+    /* Force folium map iframe to respect screen bounds */
     iframe, .stFolium {
         max-width: 100% !important;
         border-radius: 6px;
