@@ -37,29 +37,26 @@ st.markdown(
         display: none !important;
     }
 
-    /* Keep header bar solid & visible so Streamlit preserves sidebar toggle controls */
+    /* Standard header bar */
     header[data-testid="stHeader"] {
         background-color: #0e1117 !important;
-        z-index: 99999 !important;
     }
 
-    /* Ensure body and app container fit edge-to-edge without horizontal scroll */
+    /* Prevent horizontal scrolling on mobile */
     html, body, [data-testid="stAppViewContainer"], .main {
         overflow-x: hidden !important;
         max-width: 100vw !important;
         background-color: #0e1117 !important;
     }
 
-    /* Tighten layout margins */
     .block-container {
-        padding-top: 0.5rem !important;
+        padding-top: 1rem !important;
         padding-bottom: 0.5rem !important;
         padding-left: 0.25rem !important;
         padding-right: 0.25rem !important;
         max-width: 100% !important;
     }
 
-    /* Keep map canvas bounded */
     iframe, .stFolium {
         max-width: 100% !important;
         border-radius: 6px;
