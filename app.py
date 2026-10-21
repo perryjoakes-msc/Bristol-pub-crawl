@@ -29,34 +29,27 @@ st.set_page_config(
 
 st.markdown(
     """
+    <!-- Custom Home Screen Icon for iOS/Android -->
+    <link rel="apple-touch-icon" href="https://fav.farm/🍺">
+    <link rel="icon" href="https://fav.farm/🍺">
     <style>
-    /* Hide top right action items (Fork, GitHub link, 3-dots menu) */
-    [data-testid="stHeaderActionElements"],
-    [data-testid="stToolbar"],
-    footer {
+    /* Hide top header clutter (Fork/GitHub/Menu) without breaking sidebar controls */
+    [data-testid="stHeaderActionElements"], footer {
         display: none !important;
     }
-
-    /* Standard header bar */
-    header[data-testid="stHeader"] {
-        background-color: #0e1117 !important;
-    }
-
-    /* Prevent horizontal scrolling on mobile */
-    html, body, [data-testid="stAppViewContainer"], .main {
+    /* Lock body background and horizontal scroll */
+    html, body, [data-testid="stAppViewContainer"] {
         overflow-x: hidden !important;
-        max-width: 100vw !important;
         background-color: #0e1117 !important;
     }
-
+    /* Reduce main container top margin slightly for a tight layout */
     .block-container {
         padding-top: 1rem !important;
         padding-bottom: 0.5rem !important;
-        padding-left: 0.25rem !important;
-        padding-right: 0.25rem !important;
-        max-width: 100% !important;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
     }
-
+    /* Keep map canvas bounded */
     iframe, .stFolium {
         max-width: 100% !important;
         border-radius: 6px;
