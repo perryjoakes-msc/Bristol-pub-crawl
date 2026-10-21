@@ -29,13 +29,6 @@ st.set_page_config(
 
 st.markdown(
     """
-    <style>
-    /* Hide top right action items (Fork, GitHub link, 3-dots menu) */
-    [data-testid="stHeaderActionElements"],
-    [data-testid="stToolbar"],
-    footer {
-        display: none !important;
-    }
 
     /* Keep header bar solid & visible so Streamlit preserves sidebar toggle controls */
     header[data-testid="stHeader"] {
